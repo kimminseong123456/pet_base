@@ -48,11 +48,13 @@ class DashboardModel {
   final String disclaimer;
 
   factory DashboardModel.fromJson(Map<String, dynamic> json) {
-    final status = petStatusFromApi(_string(json['final_status'] ?? json['finalStatus'] ?? json['status']));
+    final status = petStatusFromApi(
+      _string(json['final_status'] ?? json['finalStatus'] ?? json['status']),
+    );
     return DashboardModel(
       dogId: _int(json['dog_id'] ?? json['dogId']) ?? 0,
-      dogName: _string(json['dog_name'] ?? json['dogName'] ?? json['name']) ?? '보리',
-      breed: _string(json['breed']) ?? '말티즈',
+      dogName: _string(json['dog_name'] ?? json['dogName'] ?? json['name']) ?? '\uBCF4\uB9AC',
+      breed: _string(json['breed']) ?? '\uB9D0\uD2F0\uC988',
       weightKg: _double(json['weight_kg'] ?? json['weightKg']) ?? 4.2,
       baselineTempC: _double(json['baseline_temp_c'] ?? json['baselineTempC']),
       heartRiskMode: _bool(json['heart_risk_mode'] ?? json['heartRiskMode']),
@@ -70,21 +72,21 @@ class DashboardModel {
       batteryPct: _int(json['battery_pct'] ?? json['batteryPct']),
       alertRequired: _bool(json['alert_required'] ?? json['alertRequired']) ?? petStatusIsCritical(status),
       redFlag: _bool(json['red_flag'] ?? json['redFlag']) ?? false,
-      disclaimer: _string(json['disclaimer']) ?? '본 결과는 웨어러블 생체신호 기반의 추정 안내이며 진단이 아닙니다.',
+      disclaimer: _string(json['disclaimer']) ?? defaultHealthDisclaimer,
     );
   }
 
   static DashboardModel demo({PetStatus status = PetStatus.normal}) {
     return DashboardModel(
       dogId: 1,
-      dogName: '보리',
-      breed: '말티즈',
+      dogName: '\uBCF4\uB9AC',
+      breed: '\uB9D0\uD2F0\uC988',
       weightKg: 4.2,
       baselineTempC: 38.1,
       finalStatus: status,
       headline: petStatusHeadline(status),
       alertRequired: petStatusIsCritical(status),
-      disclaimer: '본 결과는 웨어러블 생체신호 기반의 추정 안내이며 진단이 아닙니다.',
+      disclaimer: defaultHealthDisclaimer,
       hrBpm: status == PetStatus.danger ? 164 : 118,
       rrBpm: status == PetStatus.danger ? 42 : 24,
       tempEstC: status == PetStatus.danger ? 39.8 : 38.4,
@@ -106,14 +108,17 @@ class DashboardModel {
 
   String get measuredAtLabel {
     final value = measuredAt;
-    if (value == null) return '측정 시간 미제공';
+    if (value == null) return '\uCE21\uC815 \uC2DC\uAC04 \uBBF8\uC81C\uACF5';
     return '${_two(value.hour)}:${_two(value.minute)}';
   }
 
   static String _two(int value) => value.toString().padLeft(2, '0');
 }
 
-String? _string(dynamic value) => value == null ? null : value.toString();
+const String defaultHealthDisclaimer =
+    '\uBCF8 \uACB0\uACFC\uB294 \uC6E8\uC5B4\uB7EC\uBE14 \uC0DD\uCCB4\uC2E0\uD638 \uAE30\uBC18\uC758 \uAC74\uAC15 \uC0C1\uD0DC \uCD94\uC815 \uC548\uB0B4\uC774\uBA70 \uC9C4\uB2E8\uC774 \uC544\uB2D9\uB2C8\uB2E4.';
+
+String? _string(dynamic value) => value?.toString();
 
 int? _int(dynamic value) {
   if (value == null) return null;

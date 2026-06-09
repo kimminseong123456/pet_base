@@ -23,11 +23,11 @@ class ApiService {
     final uri = Uri.parse('${ApiConfig.baseUrl}/dashboard/$dogId');
     final response = await _client.get(uri).timeout(ApiConfig.requestTimeout);
     if (response.statusCode != 200) {
-      throw ApiException('대시보드 조회 실패: HTTP ${response.statusCode}');
+      throw ApiException('\uB300\uC2DC\uBCF4\uB4DC \uC870\uD68C \uC2E4\uD328: HTTP ${response.statusCode}');
     }
     final body = jsonDecode(utf8.decode(response.bodyBytes));
     if (body is! Map<String, dynamic>) {
-      throw ApiException('대시보드 응답 형식이 올바르지 않습니다.');
+      throw ApiException('\uB300\uC2DC\uBCF4\uB4DC \uC751\uB2F5 \uD615\uC2DD\uC774 \uC62C\uBC14\uB974\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4.');
     }
     return DashboardModel.fromJson(body);
   }
@@ -38,7 +38,7 @@ class ApiService {
     final uri = Uri.parse('${ApiConfig.baseUrl}/measurements/windows/$dogId');
     final response = await _client.get(uri).timeout(ApiConfig.requestTimeout);
     if (response.statusCode != 200) {
-      throw ApiException('15분 요약 기록 조회 실패: HTTP ${response.statusCode}');
+      throw ApiException('15\uBD84 \uC694\uC57D \uAE30\uB85D \uC870\uD68C \uC2E4\uD328: HTTP ${response.statusCode}');
     }
     final body = jsonDecode(utf8.decode(response.bodyBytes));
     final List<dynamic> rawList;
@@ -57,11 +57,11 @@ class ApiService {
     final uri = Uri.parse('${ApiConfig.baseUrl}/health-records/$recordId');
     final response = await _client.get(uri).timeout(ApiConfig.requestTimeout);
     if (response.statusCode != 200) {
-      throw ApiException('상태 상세 조회 실패: HTTP ${response.statusCode}');
+      throw ApiException('\uC0C1\uD0DC \uC0C1\uC138 \uC870\uD68C \uC2E4\uD328: HTTP ${response.statusCode}');
     }
     final body = jsonDecode(utf8.decode(response.bodyBytes));
     if (body is! Map<String, dynamic>) {
-      throw ApiException('상태 상세 응답 형식이 올바르지 않습니다.');
+      throw ApiException('\uC0C1\uD0DC \uC0C1\uC138 \uC751\uB2F5 \uD615\uC2DD\uC774 \uC62C\uBC14\uB974\uC9C0 \uC54A\uC2B5\uB2C8\uB2E4.');
     }
     return HealthRecord.fromJson(body);
   }

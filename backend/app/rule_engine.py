@@ -16,30 +16,48 @@ SQI_TEMP_TH = 0.60
 
 VALID_RATIO_15M_TH = 0.70
 
-# MVP 기본값 제안:
-# 문서에는 HR/RR jump 수치 임계값이 구체적으로 없다.
-# temp jump는 문서의 SQI_temp 아이디어에 0.6°C/s가 제시되어 있다.
+# MVP defaults:
+# HR/RR jump thresholds are product assumptions until clinical criteria are fixed.
+# The temp jump threshold follows the draft SQI_temp idea of 0.6 C/s.
 JUMP_TEMP_MAX_C_PER_SEC = 0.60
 JUMP_HR_DELTA_10S = 80
 JUMP_RR_DELTA_10S = 40
 
 
 STATUS_TEXT = {
-    "NORMAL": ("우리 아이는 지금 안정적이에요", "평소 관리 루틴을 유지해 주세요."),
-    "INTEREST": ("가벼운 변화가 보여요", "환경과 자세를 정돈한 뒤 다음 기록을 확인해 주세요."),
-    "CAUTION": ("조금 더 세심한 관찰이 필요해요", "안정 후 다시 확인하고 반복되면 상담을 권장합니다."),
-    "DANGER": ("빠른 확인이 필요해요", "즉시 안정시키고 가까운 병원 방문 여부를 확인해 주세요."),
-    "EMERGENCY": ("지금은 즉시 대응이 필요해요", "호흡곤란, 실신, 의식저하가 있으면 지체하지 말고 이동하세요."),
-    "INVALID": ("지금은 정확히 측정하기 어려워요", "움직임, 밀착, 품질 문제일 수 있으니 착용을 점검한 뒤 다시 측정해 주세요."),
+    "NORMAL": (
+        "\uC6B0\uB9AC \uC544\uC774\uB294 \uC9C0\uAE08 \uC548\uC815\uC801\uC774\uC5D0\uC694",
+        "\uD3C9\uC18C \uAD00\uB9AC \uB8E8\uD2F4\uC744 \uC774\uC5B4\uAC00 \uC8FC\uC138\uC694.",
+    ),
+    "INTEREST": (
+        "\uAC00\uBCBC\uC6B4 \uBCC0\uD654\uAC00 \uBCF4\uC5EC\uC694",
+        "\uD658\uACBD\uACFC \uC790\uC138\uB97C \uC815\uB3C8\uD55C \uB4A4 \uB2E4\uC74C \uAE30\uB85D\uC744 \uD655\uC778\uD574 \uC8FC\uC138\uC694.",
+    ),
+    "CAUTION": (
+        "\uC870\uAE08 \uB354 \uC138\uC2EC\uD55C \uAD00\uCC30\uC774 \uD544\uC694\uD574\uC694",
+        "\uC548\uC815 \uD6C4 \uB2E4\uC2DC \uD655\uC778\uD558\uACE0 \uBC18\uBCF5\uB418\uBA74 \uC0C1\uB2F4\uC744 \uAD8C\uC7A5\uD569\uB2C8\uB2E4.",
+    ),
+    "DANGER": (
+        "\uBE60\uB978 \uD655\uC778\uC774 \uD544\uC694\uD574\uC694",
+        "\uC989\uC2DC \uC548\uC815\uC2DC\uD0A4\uACE0 \uAC00\uAE4C\uC6B4 \uBCD1\uC6D0 \uBC29\uBB38 \uC5EC\uBD80\uB97C \uD655\uC778\uD574 \uC8FC\uC138\uC694.",
+    ),
+    "EMERGENCY": (
+        "\uC9C0\uAE08\uC740 \uC989\uC2DC \uB300\uC751\uC774 \uD544\uC694\uD574\uC694",
+        "\uD638\uD761\uACE4\uB780, \uC2E4\uC2E0, \uC758\uC2DD\uC800\uD558\uAC00 \uC788\uC73C\uBA74 \uC9C0\uCCB4\uD558\uC9C0 \uB9D0\uACE0 \uC774\uB3D9\uD558\uC138\uC694.",
+    ),
+    "INVALID": (
+        "\uC9C0\uAE08\uC740 \uC815\uD655\uD788 \uCE21\uC815\uD558\uAE30 \uC5B4\uB824\uC6CC\uC694",
+        "\uC6C0\uC9C1\uC784, \uBC00\uCC29, \uC2E0\uD638 \uD488\uC9C8 \uBB38\uC81C\uC77C \uC218 \uC788\uC5B4 \uCC29\uC6A9 \uC0C1\uD0DC\uB97C \uC810\uAC80\uD574 \uC8FC\uC138\uC694.",
+    ),
 }
 
 
 INVALID_MESSAGES = {
-    "motion": "강아지가 움직이고 있어요. 안정된 자세로 1분 뒤 다시 측정해 주세요.",
-    "no_contact": "센서 밀착이 부족할 수 있어요. 하네스를 조금 더 조이거나 센서 위치를 조정해 주세요.",
-    "unstable": "센서가 흔들리거나 값이 불안정해요. 착용 상태를 점검한 뒤 다시 측정해 주세요.",
-    "jump": "측정값이 급변했어요. 30초 후 재측정해 주세요.",
-    "sensor_error": "센서 또는 전송 오류가 의심돼요. 앱 재시도 후 지속되면 기기 점검이 필요합니다.",
+    "motion": "\uAC15\uC544\uC9C0\uAC00 \uC6C0\uC9C1\uC774\uACE0 \uC788\uC5B4\uC694. \uC548\uC815\uB41C \uC790\uC138\uB85C 1\uBD84 \uB4A4 \uB2E4\uC2DC \uCE21\uC815\uD574 \uC8FC\uC138\uC694.",
+    "no_contact": "\uC13C\uC11C \uBC00\uCC29\uC774 \uBD80\uC871\uD560 \uC218 \uC788\uC5B4\uC694. \uD558\uB124\uC2A4\uB97C \uC870\uAE08 \uB354 \uC870\uC774\uAC70\uB098 \uC13C\uC11C \uC704\uCE58\uB97C \uC870\uC815\uD574 \uC8FC\uC138\uC694.",
+    "unstable": "\uC13C\uC11C\uAC00 \uD754\uB4E4\uB9AC\uAC70\uB098 \uAC12\uC774 \uBD88\uC548\uC815\uD574\uC694. \uCC29\uC6A9 \uC0C1\uD0DC\uB97C \uC810\uAC80\uD55C \uB4A4 \uB2E4\uC2DC \uCE21\uC815\uD574 \uC8FC\uC138\uC694.",
+    "jump": "\uCE21\uC815\uAC12\uC774 \uAE09\uACA9\uD788 \uBCC0\uD588\uC5B4\uC694. 30\uCD08 \uB4A4 \uB2E4\uC2DC \uCE21\uC815\uD574 \uC8FC\uC138\uC694.",
+    "sensor_error": "\uC13C\uC11C \uB610\uB294 \uC804\uC1A1 \uC624\uB958\uAC00 \uC758\uC2EC\uB3FC\uC694. \uC7AC\uC2DC\uC791 \uD6C4\uC5D0\uB3C4 \uC9C0\uC18D\uB418\uBA74 \uAE30\uAE30 \uC810\uAC80\uC774 \uD544\uC694\uD569\uB2C8\uB2E4.",
 }
 
 
@@ -148,9 +166,6 @@ def get_invalid_reason(
         return "jump"
 
     if packet.sqi_ppg is None or packet.sqi_ppg < SQI_PPG_TH:
-        # MVP 기본값 제안:
-        # 문서는 PPG 실패를 unstable 또는 no_contact로 처리한다고만 제시한다.
-        # 매우 낮은 SQI는 no_contact, 그 외는 unstable로 분리한다.
         if packet.sqi_ppg is not None and packet.sqi_ppg < 0.40:
             return "no_contact"
         return "unstable"
@@ -159,8 +174,6 @@ def get_invalid_reason(
         return "unstable"
 
     if packet.sqi_temp is None or packet.sqi_temp < SQI_TEMP_TH:
-        # MVP 기본값 제안:
-        # 온도 SQI가 매우 낮으면 밀착 부족으로 본다.
         if packet.sqi_temp is not None and packet.sqi_temp < 0.35:
             return "no_contact"
         return "unstable"

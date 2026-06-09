@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../models/measurement_window.dart';
 import '../models/health_record.dart';
-import '../models/pet_status.dart';
 import '../services/api_service.dart';
 import '../theme/app_colors.dart';
 import '../widgets/pet_base_ui.dart';

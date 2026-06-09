@@ -46,51 +46,51 @@ String petStatusApiCode(PetStatus status) {
 String petStatusTitle(PetStatus status) {
   switch (status) {
     case PetStatus.normal:
-      return '정상';
+      return '\uC815\uC0C1';
     case PetStatus.interest:
-      return '관심';
+      return '\uAD00\uC2EC';
     case PetStatus.caution:
-      return '주의';
+      return '\uC8FC\uC758';
     case PetStatus.danger:
-      return '위험';
+      return '\uC704\uD5D8';
     case PetStatus.emergency:
-      return '응급';
+      return '\uC751\uAE09';
     case PetStatus.invalid:
-      return '측정불가';
+      return '\uCE21\uC815\uBD88\uAC00';
   }
 }
 
 String petStatusHeadline(PetStatus status) {
   switch (status) {
     case PetStatus.normal:
-      return '우리 아이는 지금 안정적이에요';
+      return '\uC6B0\uB9AC \uC544\uC774\uB294 \uC9C0\uAE08 \uC548\uC815\uC801\uC774\uC5D0\uC694';
     case PetStatus.interest:
-      return '가벼운 변화가 보여요';
+      return '\uAC00\uBCBC\uC6B4 \uBCC0\uD654\uAC00 \uBCF4\uC5EC\uC694';
     case PetStatus.caution:
-      return '조금 더 세심한 관찰이 필요해요';
+      return '\uC870\uAE08 \uB354 \uC138\uC2EC\uD55C \uAD00\uCC30\uC774 \uD544\uC694\uD574\uC694';
     case PetStatus.danger:
-      return '빠른 확인이 필요해요';
+      return '\uBE60\uB978 \uD655\uC778\uC774 \uD544\uC694\uD574\uC694';
     case PetStatus.emergency:
-      return '지금은 즉시 대응이 필요해요';
+      return '\uC9C0\uAE08\uC740 \uC989\uC2DC \uB300\uC751\uC774 \uD544\uC694\uD574\uC694';
     case PetStatus.invalid:
-      return '지금은 정확히 측정하기 어려워요';
+      return '\uC9C0\uAE08\uC740 \uC815\uD655\uD788 \uCE21\uC815\uD558\uAE30 \uC5B4\uB824\uC6CC\uC694';
   }
 }
 
 String petStatusHelper(PetStatus status) {
   switch (status) {
     case PetStatus.normal:
-      return '평소 관리 루틴을 유지해 주세요.';
+      return '\uD3C9\uC18C \uAD00\uB9AC \uB8E8\uD2F4\uC744 \uC774\uC5B4\uAC00 \uC8FC\uC138\uC694.';
     case PetStatus.interest:
-      return '환경과 자세를 정돈한 뒤 다음 기록을 확인해 주세요.';
+      return '\uD658\uACBD\uACFC \uC790\uC138\uB97C \uC815\uB3C8\uD55C \uB4A4 \uB2E4\uC74C \uAE30\uB85D\uC744 \uD655\uC778\uD574 \uC8FC\uC138\uC694.';
     case PetStatus.caution:
-      return '안정 후 다시 확인하고 반복되면 상담을 권장합니다.';
+      return '\uC548\uC815 \uD6C4 \uB2E4\uC2DC \uD655\uC778\uD558\uACE0 \uBC18\uBCF5\uB418\uBA74 \uC0C1\uB2F4\uC744 \uAD8C\uC7A5\uD569\uB2C8\uB2E4.';
     case PetStatus.danger:
-      return '즉시 안정시키고 가까운 병원 방문 여부를 확인해 주세요.';
+      return '\uC989\uC2DC \uC548\uC815\uC2DC\uD0A4\uACE0 \uAC00\uAE4C\uC6B4 \uBCD1\uC6D0 \uBC29\uBB38 \uC5EC\uBD80\uB97C \uD655\uC778\uD574 \uC8FC\uC138\uC694.';
     case PetStatus.emergency:
-      return '호흡곤란, 실신, 의식저하가 있으면 지체하지 말고 이동하세요.';
+      return '\uD638\uD761\uACE4\uB780, \uC2E4\uC2E0, \uC758\uC2DD\uC800\uD558\uAC00 \uC788\uC73C\uBA74 \uC9C0\uCCB4\uD558\uC9C0 \uB9D0\uACE0 \uC774\uB3D9\uD558\uC138\uC694.';
     case PetStatus.invalid:
-      return '움직임, 밀착, 품질 문제일 수 있으니 착용을 점검한 뒤 다시 측정해 주세요.';
+      return '\uC6C0\uC9C1\uC784, \uBC00\uCC29, \uC2E0\uD638 \uD488\uC9C8 \uBB38\uC81C\uC77C \uC218 \uC788\uC5B4 \uCC29\uC6A9 \uC0C1\uD0DC\uB97C \uC810\uAC80\uD574 \uC8FC\uC138\uC694.';
   }
 }
 
