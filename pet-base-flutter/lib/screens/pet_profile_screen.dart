@@ -129,16 +129,16 @@ class _HeroProfile extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Flexible(child: Text(data.dogName, style: const TextStyle(fontSize: 36, fontWeight: FontWeight.w900, height: 1))),
+                    Flexible(child: Text(data.dogName, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w900, height: 1))),
                     const SizedBox(width: 10),
                     const Icon(Icons.verified_rounded, color: AppColors.brand),
                   ],
                 ),
                 const SizedBox(height: 8),
-                Text(data.breed ?? '품종 미제공', style: const TextStyle(fontSize: 22, color: AppColors.textPrimary, fontWeight: FontWeight.w700)),
+                Text(data.breed ?? '품종 미제공', maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 20, color: AppColors.textPrimary, fontWeight: FontWeight.w700)),
                 const SizedBox(height: 18),
                 Wrap(
-                  spacing: 16,
+                  spacing: 10,
                   runSpacing: 10,
                   children: [
                     _ProfileBadge(icon: Icons.monitor_weight_outlined, text: data.weightKg == null ? '몸무게 미제공' : '${data.weightKg!.toStringAsFixed(1)}kg'),
@@ -160,7 +160,24 @@ class _ProfileBadge extends StatelessWidget {
   final IconData icon;
   final String text;
   @override
-  Widget build(BuildContext context) => Row(mainAxisSize: MainAxisSize.min, children: [Icon(icon, size: 21, color: AppColors.textSecondary), const SizedBox(width: 7), Text(text, style: const TextStyle(fontSize: 16, color: AppColors.textSecondary, fontWeight: FontWeight.w700))]);
+  Widget build(BuildContext context) => ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 190),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 21, color: AppColors.textSecondary),
+            const SizedBox(width: 7),
+            Flexible(
+              child: Text(
+                text,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(fontSize: 16, color: AppColors.textSecondary, fontWeight: FontWeight.w700),
+              ),
+            ),
+          ],
+        ),
+      );
 }
 
 class _ProfileRows extends StatelessWidget {
@@ -206,7 +223,21 @@ class _InfoRow extends StatelessWidget {
           MetricIcon(icon: icon, color: AppColors.brand, size: 42),
           const SizedBox(width: 14),
           Expanded(child: Text(label, style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w800))),
-          if (trailing != null) trailing! else Text(value, style: const TextStyle(fontSize: 17, color: AppColors.textPrimary, fontWeight: FontWeight.w700)),
+          if (trailing != null)
+            trailing!
+          else
+            Flexible(
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: Text(
+                  value,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.right,
+                  style: const TextStyle(fontSize: 17, color: AppColors.textPrimary, fontWeight: FontWeight.w700),
+                ),
+              ),
+            ),
           const SizedBox(width: 8),
           const Icon(Icons.chevron_right_rounded, color: AppColors.textMuted),
         ],

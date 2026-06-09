@@ -296,7 +296,7 @@ class _VitalsGrid extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       crossAxisSpacing: 14,
       mainAxisSpacing: 14,
-      childAspectRatio: 1.36,
+      childAspectRatio: 0.92,
       children: [
         _VitalCard(icon: Icons.favorite_rounded, color: AppColors.danger, title: '심박수', value: data.hrBpm?.toString() ?? '-', unit: 'bpm'),
         _VitalCard(icon: Icons.air_rounded, color: AppColors.blue, title: '호흡수', value: data.rrBpm?.toString() ?? '-', unit: '회/분'),
@@ -329,33 +329,53 @@ class _VitalCard extends StatelessWidget {
       padding: const EdgeInsets.all(18),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             children: [
-              MetricIcon(icon: icon, color: color, size: 46),
-              const SizedBox(width: 12),
-              Expanded(child: Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900))),
+              MetricIcon(icon: icon, color: color, size: 42),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
+                ),
+              ),
             ],
           ),
-          const Spacer(),
+          const SizedBox(height: 14),
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(value, style: const TextStyle(fontSize: 36, height: 0.95, fontWeight: FontWeight.w900, color: AppColors.textPrimary)),
+              Flexible(
+                child: Text(
+                  value,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(fontSize: 32, height: 0.95, fontWeight: FontWeight.w900, color: AppColors.textPrimary),
+                ),
+              ),
               if (unit.isNotEmpty) ...[
-                const SizedBox(width: 7),
+                const SizedBox(width: 6),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 4),
-                  child: Text(unit, style: const TextStyle(fontSize: 16, color: AppColors.textSecondary, fontWeight: FontWeight.w700)),
+                  padding: const EdgeInsets.only(bottom: 3),
+                  child: Text(
+                    unit,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(fontSize: 14, color: AppColors.textSecondary, fontWeight: FontWeight.w700),
+                  ),
                 ),
               ],
             ],
           ),
           const SizedBox(height: 8),
           if (caption == null)
-            Sparkline(color: color)
+            SizedBox(height: 26, width: double.infinity, child: Sparkline(color: color))
           else
-            Text(caption!, style: TextStyle(color: color, fontWeight: FontWeight.w900)),
+            Text(caption!, maxLines: 1, overflow: TextOverflow.ellipsis, style: TextStyle(color: color, fontWeight: FontWeight.w900)),
         ],
       ),
     );

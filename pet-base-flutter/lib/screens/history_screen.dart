@@ -205,7 +205,11 @@ class _LineChartCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 14),
-          SizedBox(height: 230, child: CustomPaint(painter: _TrendChartPainter())),
+          SizedBox(
+            height: 210,
+            width: double.infinity,
+            child: ClipRect(child: CustomPaint(painter: _TrendChartPainter())),
+          ),
         ],
       ),
     );
@@ -231,17 +235,18 @@ class _LegendDot extends StatelessWidget {
 class _TrendChartPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
+    canvas.clipRect(Offset.zero & size);
     final gridPaint = Paint()
       ..color = AppColors.border
       ..strokeWidth = 1;
     final textPainter = TextPainter(textDirection: TextDirection.ltr);
     const labelsY = ['160', '120', '80', '40', '0'];
     for (var i = 0; i < 5; i++) {
-      final y = size.height * i / 4;
+      final y = 8 + (size.height - 34) * i / 4;
       canvas.drawLine(Offset(44, y), Offset(size.width - 10, y), gridPaint);
       textPainter.text = TextSpan(text: labelsY[i], style: const TextStyle(fontSize: 12, color: AppColors.textSecondary));
       textPainter.layout();
-      textPainter.paint(canvas, Offset(0, y - 8));
+      textPainter.paint(canvas, Offset(0, y - textPainter.height / 2));
     }
     _drawLine(canvas, size, const Color(0xFFFF6473), [112, 104, 115, 120, 116, 111, 105, 124, 119, 125, 117, 113, 130, 122, 118, 124, 121, 126, 133]);
     _drawLine(canvas, size, AppColors.blue, [23, 26, 27, 24, 31, 25, 32, 28, 38, 35, 36, 39, 40]);
@@ -252,7 +257,7 @@ class _TrendChartPainter extends CustomPainter {
       final x = 44 + (size.width - 64) * i / (labels.length - 1);
       textPainter.text = TextSpan(text: labels[i], style: const TextStyle(fontSize: 13, color: AppColors.textSecondary));
       textPainter.layout();
-      textPainter.paint(canvas, Offset(x - textPainter.width / 2, size.height - 8));
+      textPainter.paint(canvas, Offset(x - textPainter.width / 2, size.height - textPainter.height));
     }
   }
 
@@ -326,22 +331,34 @@ class _HistoryRow extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 13),
+        padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(border: Border(bottom: BorderSide(color: AppColors.border.withOpacity(0.7)))),
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(width: 9, height: 9, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
-            const SizedBox(width: 10),
-            SizedBox(width: 94, child: Text(item.timeLabel, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700))),
-            StatusPill(status: item.status),
-            const Spacer(),
-            _SmallValue(icon: Icons.favorite_border_rounded, text: '${_num(item.hrAvg)} bpm'),
-            const SizedBox(width: 12),
-            _SmallValue(icon: Icons.air_rounded, text: '${_num(item.rrAvg)} 회/분'),
-            const SizedBox(width: 12),
-            _SmallValue(icon: Icons.thermostat_outlined, text: '${_temp(item.tempEstAvg)}'),
-            const SizedBox(width: 2),
-            const Icon(Icons.chevron_right_rounded, color: AppColors.textMuted),
+            Row(
+              children: [
+                Container(width: 9, height: 9, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+                const SizedBox(width: 10),
+                Expanded(child: Text(item.timeLabel, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800))),
+                StatusPill(status: item.status),
+                const SizedBox(width: 4),
+                const Icon(Icons.chevron_right_rounded, color: AppColors.textMuted),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Padding(
+              padding: const EdgeInsets.only(left: 19),
+              child: Wrap(
+                spacing: 12,
+                runSpacing: 6,
+                children: [
+                  _SmallValue(icon: Icons.favorite_border_rounded, text: '${_num(item.hrAvg)} bpm'),
+                  _SmallValue(icon: Icons.air_rounded, text: '${_num(item.rrAvg)} 회/분'),
+                  _SmallValue(icon: Icons.thermostat_outlined, text: '${_temp(item.tempEstAvg)}'),
+                ],
+              ),
+            ),
           ],
         ),
       ),
@@ -357,7 +374,14 @@ class _SmallValue extends StatelessWidget {
   final IconData icon;
   final String text;
   @override
-  Widget build(BuildContext context) => Row(children: [Icon(icon, size: 17, color: AppColors.textSecondary), const SizedBox(width: 3), Text(text, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w700))]);
+  Widget build(BuildContext context) => Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 17, color: AppColors.textSecondary),
+          const SizedBox(width: 3),
+          Text(text, style: const TextStyle(fontSize: 12, color: AppColors.textSecondary, fontWeight: FontWeight.w700)),
+        ],
+      );
 }
 
 class _DailySummaryPlaceholder extends StatelessWidget {
